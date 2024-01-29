@@ -1,1 +1,1 @@
-web: guinicorn 'notes-project.wsgi'
+web: gunicorn 'notes-project.wsgi'
