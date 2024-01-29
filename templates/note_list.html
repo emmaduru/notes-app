@@ -1,0 +1,124 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<div class="d-flex justify-content-between">
+    <h2>All Notes</h2>
+<!-- Button trigger modal -->
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#noteCreateModal">
+        Add Note
+    </button>
+    
+    <!-- Modal -->
+    <div class="modal fade" id="noteCreateModal" tabindex="-1" aria-labelledby="noteCreateModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h1 class="modal-title fs-5" id="noteCreateModalLabel">Create Note</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form action="{% url 'note_create' %}" method="post">
+                <div class="modal-body">
+                    {% csrf_token %}
+                    {{ form|crispy }}
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save Note</button>
+                </div>
+            </form>
+        </div>
+        </div>
+    </div>
+</div>
+<div class="row my-3">
+    {% for note in notes %}        
+
+        <div class="col-lg-3 col-md-6 col-sm-12 mb-3">
+            <div class="card">
+                <div class="card-body">
+                    <p class="card-text">{{ note.text|truncatechars:30 }}</p>
+                    <div class="mr-auto">
+                        <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#noteDetail{{ note.id }}Modal">
+                            <i class="fa-solid text-success fa-eye"></i>
+                        </button>
+                        
+                        <!-- Modal -->
+                        <div class="modal fade" id="noteDetail{{ note.id }}Modal" tabindex="-1" aria-labelledby="noteDetail{{ note.id }}ModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h1 class="modal-title fs-5" id="noteDetail{{ note.id }}ModalLabel">Note Detail</h1>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <p>
+                                        {{ note.text }}
+                                    </p>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+
+                        <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#noteEdit{{ note.id }}Modal">
+                            <i class="fa-solid text-primary fa-pen-to-square"></i>
+                        </button>
+                        
+                        <!-- Modal -->
+                        <div class="modal fade" id="noteEdit{{ note.id }}Modal" tabindex="-1" aria-labelledby="noteEdit{{ note.id }}ModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                <h1 class="modal-title fs-5" id="noteEdit{{ note.id }}ModalLabel">Edit Note</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <form action="{% url 'note_edit' note.id %}" method="post">
+                                    <div class="modal-body">
+                                        {% csrf_token %}
+                                        <label for="text">Text</label>
+                                        <textarea name="text" id="" cols="30" rows="5" class="form-control">{{ note.text }}</textarea>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                        <button type="submit" class="btn btn-primary">Edit Note</button>
+                                    </div>
+                                </form>
+                            </div>
+                            </div>
+                        </div>
+                
+                        <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#noteDelete{{ note.id }}Modal">
+                            <i class="fa-solid text-danger fa-trash"></i>
+                        </button>
+                        
+                        <!-- Modal -->
+                        <div class="modal fade" id="noteDelete{{ note.id }}Modal" tabindex="-1" aria-labelledby="noteDelete{{ note.id }}ModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                <h1 class="modal-title fs-5" id="noteDelete{{ note.id }}ModalLabel">Delete Note</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <form action="{% url 'note_delete' note.id %}" method="post">
+                                    <div class="modal-body">
+                                        {% csrf_token %}
+                                        <p>Are you sure you want to delete <strong>"{{ note.text }}"</strong>?</p>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                        <button type="submit" class="btn btn-danger">Delete Note</button>
+                                    </div>
+                                </form>
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+</div>
+{% endblock %}

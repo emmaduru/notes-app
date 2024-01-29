@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Notes App</h2>
+<p>Write the best notes in the world!</p>
+{% if user.is_authenticated %}
+<a href="{% url 'note_list' %}" class="btn btn-primary">View your notes</a>
+{% else %}
+<a href="{% url 'signup' %}" class="btn btn-primary">Sign Up</a>
+<a href="{% url 'login' %}" class="btn btn-outline-primary">Log In</a>
+{% endif %}
+{% endblock %}
