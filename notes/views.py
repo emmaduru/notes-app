@@ -19,7 +19,7 @@ class NoteListView(LoginRequiredMixin, ListView):
         return context
     
     def get_queryset(self):
-        return Note.objects.filter(author=self.request.user)
+        return Note.objects.filter(author=self.request.user).order_by("-id")
 
 class NoteCreateView(LoginRequiredMixin, CreateView):
     http_method_names = ["post"]
