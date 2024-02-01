@@ -58,6 +58,8 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+CSRF_FAILURE_VIEW = "notes.views.csrf_failure"
+
 ROOT_URLCONF = 'notes_project.urls'
 
 TEMPLATES = [

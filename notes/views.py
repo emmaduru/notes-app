@@ -1,7 +1,8 @@
-from django.views.generic import ListView, CreateView
+from django.views.generic import ListView, CreateView, TemplateView
 from django.views.generic.edit import UpdateView, DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.urls import reverse_lazy
+from django.shortcuts import render
 from .models import Note
 from .forms import NoteCreateForm, NoteUpdateForm
 
@@ -57,4 +58,5 @@ class NoteDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
         obj = self.get_object()
         return obj.author == self.request.user
 
-    
+def csrf_failure(request, reason=""):
+    return render(request, "403.html")
