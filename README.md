@@ -1,5 +1,5 @@
-# Devfolio
-Devfolio is a website that enables developers create online portfolios within minutes.
+# Notes
+An app to securely save your notes.
 
 ![](static/images/notes-home.PNG)
 <br>
