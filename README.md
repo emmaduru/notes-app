@@ -36,10 +36,22 @@ Then apply the migrations:
 python manage.py migrate
 ```
 
+### 5. Run tests
+To run tests:
+```bash
+python manage.py test
+```
+
+### 6. Run server
 Then launch the development server:
 
 ```bash
 python manage.py runserver
 ```
-
 Go to http://127.0.0.1:8000 in a web browser
+
+### 5. Run tests
+To run tests:
+```bash
+python manage.py test
+```
