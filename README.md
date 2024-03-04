@@ -20,7 +20,7 @@ Python 3.10+, Git
 Open a terminal and run the following commands:
 ```bash
 git clone https://github.com/emmaduru/notes-app.git
-cd devfolio
+cd notes-app
 ```
 
 ### 3. Create virtual environment and install dependencies
